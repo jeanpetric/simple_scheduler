@@ -78,10 +78,10 @@
         }
     }
 
-    $form = $_GET;
+    $get = $_GET;
     $post = $_POST;
 
-    $action = $form["action"];
+    $action = $get["action"];
     $actionPost = $post["action"];
 
     if (isset($actionPost)) {
@@ -119,7 +119,7 @@
             print($f->getForm());
         }
     } else if ($action === "doodle") {
-        $doodle = filter_var($form["name"], FILTER_SANITIZE_STRING);
+        $doodle = filter_var($get["name"], FILTER_SANITIZE_STRING);
         $slots = explode("\n", file_get_contents($doodle));
         $f = new FormCreator("doodle.php");
         $doodle = new FormInputHidden("name", "$doodle");
@@ -154,7 +154,7 @@
         fclose($record);
         echo "Thanks $student. Your selected slot $selectedSlot has been recorded.";
     } else if ($action === "show") {
-        $doodle = filter_var($form['name'], FILTER_SANITIZE_STRING);
+        $doodle = filter_var($get['name'], FILTER_SANITIZE_STRING);
         $file = file($doodle . ".selected");
         foreach ($file as $element) {
             print($element . "<br>");
